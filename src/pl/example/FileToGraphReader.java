@@ -34,20 +34,24 @@ public class FileToGraphReader {
 		NodeList vertexList = document.getElementsByTagName(VERTEX);
 		Graph graph = new Graph();
 		for(int i = 0; i < vertexList.getLength(); i++) {
+			Vertex vertex = new Vertex(i);
+			graph.addVertex(vertex);
+		}
+		for(int i = 0; i < vertexList.getLength(); i++) {
 			Node vertexNode = vertexList.item(i);
 			NodeList edgeList = vertexNode.getChildNodes();
-			Vertex vertex = new Vertex(i);
+			Vertex vertex = graph.getVertex(i);
 			for(int j = 0; j < edgeList.getLength(); j++) {
 				Node edgeNode = edgeList.item(j);
 				if(edgeNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element element = (Element) edgeNode;
-					String edgeDestination = element.getTextContent();
+					int edgeDestination = Integer.parseInt(element.getTextContent());
 					String cost = element.getAttribute(COST);
-					Edge edge = new Edge(Integer.parseInt(edgeDestination), Double.parseDouble(cost));
+					Double costD = Double.parseDouble(cost) + 0.5;
+					Edge edge = new Edge(graph.getVertex(edgeDestination), costD.intValue());
 					vertex.addEdge(edge);
 				}
 			}
-			graph.addVertex(vertex);
 		}
 		
 		return graph;

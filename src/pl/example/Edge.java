@@ -1,12 +1,25 @@
 package pl.example;
 
-public class Edge {
+public class Edge implements Comparable<Edge> {
 
-	private final int destinationVertex;
-	private final double cost;
+	private final Vertex destinationVertex;
+	private final int cost;
 	
-	public Edge(int destinationVertex, double cost) {
+	public Edge(Vertex destinationVertex, int cost) {
 		this.destinationVertex = destinationVertex;
 		this.cost = cost;
+	}
+
+	public Vertex getDestinationVertex() {
+		return destinationVertex;
+	}
+
+	public int getCost() {
+		return cost;
+	}
+
+	@Override
+	public int compareTo(Edge o) {
+		return cost - o.getCost();
 	}
 }

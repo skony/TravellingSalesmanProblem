@@ -15,7 +15,21 @@ public class Graph {
 		vertexes = new ArrayList<Vertex>();
 	}
 	
+	public List<Vertex> getVertexes() {
+		return vertexes;
+	}
+	
 	public void addVertex(Vertex vertex) {
 		vertexes.add(vertex);
+	}
+	
+	public Vertex getVertex(int num) {
+		return vertexes.get(num);
+	}
+	
+	public void clearGraph() {
+		for(Vertex vertex : vertexes) {
+			vertex.unvisit();
+		}
 	}
 }
