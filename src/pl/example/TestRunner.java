@@ -1,14 +1,16 @@
 package pl.example;
 
+import java.util.List;
+
 public class TestRunner {
 	
-	private int lastRunBestValue;
-	private int lastRunWorstValue;
-	private int lastRunAvarageValue;
-	private int[] lastRunBestPath;
+	private int lastAlgorithmBestValue;
+	private int lastAlgorithmWorstValue;
+	private int lastAlgorithmAvarageValue;
+	private List<Vertex> lastAlgorithmBestPath;
 	
 	public void runTest(Algorithm algorithm, Graph graph){
-		int[] bestPath = new int[51];
+		List<Vertex> bestPath = null;
 		int bestResult = Integer.MAX_VALUE;
 		int worstResult = 0;
 		int sum = 0;
@@ -23,27 +25,28 @@ public class TestRunner {
 			if(result > worstResult) {
 				worstResult = result;
 			}
+			List<Vertex> path = algorithm.getPath();
 		}
-		lastRunBestValue = bestResult;
-		lastRunWorstValue = worstResult;
-		lastRunBestPath = bestPath;
+		lastAlgorithmBestValue = bestResult;
+		lastAlgorithmWorstValue = worstResult;
+		lastAlgorithmBestPath = bestPath;
 		Double d = ((((double) sum) / ((double) 100)) + 0.5);
-		lastRunAvarageValue = d.intValue();
+		lastAlgorithmAvarageValue = d.intValue();
 	}
 
 	public int getLastRunBestValue() {
-		return lastRunBestValue;
+		return lastAlgorithmBestValue;
 	}
 
 	public int getLastRunWorstValue() {
-		return lastRunWorstValue;
+		return lastAlgorithmWorstValue;
 	}
 
 	public int getLastRunAvarageValue() {
-		return lastRunAvarageValue;
+		return lastAlgorithmAvarageValue;
 	}
 
-	public int[] getLastRunBestPath() {
-		return lastRunBestPath;
+	public List<Vertex> getLastRunBestPath() {
+		return lastAlgorithmBestPath;
 	}
 }

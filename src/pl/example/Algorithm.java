@@ -6,5 +6,5 @@ public interface Algorithm {
 	
 	public void run(Graph graph, Vertex startVertex);
 	public int getResult();
-	public int[] getPath();
+	public List<Vertex> getPath();
 }

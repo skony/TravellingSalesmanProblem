@@ -2,6 +2,7 @@ package pl.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Graph {
 	
@@ -31,5 +32,9 @@ public class Graph {
 		for(Vertex vertex : vertexes) {
 			vertex.unvisit();
 		}
+	}
+	
+	public List<Vertex> getUnvisitedVertexes() {
+		return vertexes.stream().filter(v -> v.isNotVisited()).collect(Collectors.toList());
 	}
 }

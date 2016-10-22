@@ -53,8 +53,8 @@ public class GreedyCycleAlgorithm implements Algorithm {
 	}
 
 	@Override
-	public int[] getPath() {
-		return path;
+	public List<Vertex> getPath() {
+		return null;
 	}
 	
 	private void addToCyle(List<Vertex> cycle, Vertex vertex) {

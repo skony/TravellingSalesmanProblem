@@ -23,4 +23,6 @@ public class AlgorithmsCommon {
 		}
 		return Integer.MAX_VALUE;
 	}
+	
+	//public static int getDistanceToNeighbours()
 }

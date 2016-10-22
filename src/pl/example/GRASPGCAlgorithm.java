@@ -7,50 +7,32 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GRASPGCAlgorithm implements Algorithm{
+public class GRASPGCAlgorithm extends TSPAlgorithm{
 
-	private int result;
-	private int[] path = new int[51];
-	
 	@Override
 	public void run(Graph graph, Vertex startVertex) {
-		result = 0;
-		path = new int[51];
-		List<Vertex> cycle = new LinkedList<Vertex>();
+		super.run(graph, startVertex);
 		Edge edge  = AlgorithmsCommon.findEdgeToNearestUnvisitedNeighbour(startVertex);
-		cycle.add(startVertex);
-		cycle.add(edge.getDestinationVertex());
-		cycle.add(startVertex);
+		path.add(edge.getDestinationVertex());
 		List<Vertex> notVisitedVertex = cloneList(graph.getVertexes());
-		notVisitedVertex.remove(startVertex);
-		notVisitedVertex.remove(edge.getDestinationVertex());
 		int currentPathDistance = 2;
 		while(currentPathDistance < PATH_DISTANCE) {
-			addCandidateEdge(cycle, notVisitedVertex);
+			addCandidateEdge(path, notVisitedVertex);
 			currentPathDistance++;
 		}
-		for(int i=0; i<cycle.size(); i++) {
-			path[i] = cycle.get(i).getNumber();
-			if(i+1 < cycle.size()) {
-				result += AlgorithmsCommon.getDistance(cycle.get(i), cycle.get(i+1));
+		for(int i=0; i<path.size(); i++) {
+			if(i+1 < path.size()) {
+				result += AlgorithmsCommon.getDistance(path.get(i), path.get(i+1));
+			} else {
+				result += AlgorithmsCommon.getDistance(path.get(i), path.get(0));
 			}
 		}
-	}
-
-	@Override
-	public int getResult() {
-		return result;
-	}
-
-	@Override
-	public int[] getPath() {
-		return path;
 	}
 
 	private List<Vertex> cloneList(List<Vertex> list) {
 	    List<Vertex> clone = new ArrayList<Vertex>(list.size());
 	    for (Vertex item : list) 
-	    	clone.add(item.clone());
+	    	clone.add(item);
 	    return clone;
 	}
 	
