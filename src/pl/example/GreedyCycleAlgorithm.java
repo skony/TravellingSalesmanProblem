@@ -90,4 +90,10 @@ public class GreedyCycleAlgorithm implements Algorithm {
 		}
 		cycle.add(positionToPut, vertex);
 	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

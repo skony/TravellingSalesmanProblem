@@ -27,4 +27,9 @@ public class TSPAlgorithm implements Algorithm{
 		return path;
 	}
 
+	@Override
+	public String getName() {
+		return "TSP";
+	}
+
 }

@@ -28,6 +28,11 @@ public class GreedyCycle2Algorithm extends TSPAlgorithm{
 		}
 	}
 	
+	@Override
+	public String getName() {
+		return "GREEDY CYCLE ALGORITHM";
+	}
+	
 	private void addBestEdge(List<Vertex> cycle, List<Vertex> notVisitedVertex) {
 		int bestDistance = Integer.MAX_VALUE;
 		int positionToPut = 1;
@@ -48,5 +53,6 @@ public class GreedyCycle2Algorithm extends TSPAlgorithm{
 		}
 		cycle.add(positionToPut, vertexToPut);
 		notVisitedVertex.remove(vertexToPut);
+		vertexToPut.visit();
 	}
 }

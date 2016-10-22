@@ -16,6 +16,7 @@ public class Main {
 		algorithms.add(new RandomAlgorithm());
 		TestRunner testRunner = new TestRunner();
 		for(Algorithm algorithm : algorithms) {
+			System.out.println(algorithm.getName());
 			testRunner.runTest(algorithm, graph);
 			List<Vertex> bestPath = testRunner.getLastRunBestPath();
 			System.out.println("MIN: " + testRunner.getLastRunBestValue());
@@ -26,6 +27,17 @@ public class Main {
 				System.out.print(v.getNumber() + ", ");
 			}
 			System.out.print(bestPath.get(0).getNumber() + ", ");
+			System.out.println("]");
+			System.out.println("AFTER LOCAL SEARCH");
+			List<Vertex> bestPath2 = testRunner.getLocalSearchBestPath();
+			System.out.println("MIN: " + testRunner.getLocalSearchBestValue());
+			System.out.println("MAX: " + testRunner.getLocalSearchhWorstValue());
+			System.out.println("AVG: " + testRunner.getLocalSearchAvarageValue());
+			System.out.print("[");
+			for(Vertex v : bestPath2) {
+				System.out.print(v.getNumber() + ", ");
+			}
+			System.out.print(bestPath2.get(0).getNumber() + ", ");
 			System.out.println("]");
 		}
 	}

@@ -14,7 +14,8 @@ public class GRASPGCAlgorithm extends TSPAlgorithm{
 		super.run(graph, startVertex);
 		Edge edge  = AlgorithmsCommon.findEdgeToNearestUnvisitedNeighbour(startVertex);
 		path.add(edge.getDestinationVertex());
-		List<Vertex> notVisitedVertex = cloneList(graph.getVertexes());
+		edge.getDestinationVertex().visit();
+		List<Vertex> notVisitedVertex = graph.getUnvisitedVertexes();
 		int currentPathDistance = 2;
 		while(currentPathDistance < PATH_DISTANCE) {
 			addCandidateEdge(path, notVisitedVertex);
@@ -28,12 +29,10 @@ public class GRASPGCAlgorithm extends TSPAlgorithm{
 			}
 		}
 	}
-
-	private List<Vertex> cloneList(List<Vertex> list) {
-	    List<Vertex> clone = new ArrayList<Vertex>(list.size());
-	    for (Vertex item : list) 
-	    	clone.add(item);
-	    return clone;
+	
+	@Override
+	public String getName() {
+		return "GRASPGC ALGORITHM";
 	}
 	
 	private void addCandidateEdge(List<Vertex> cycle, List<Vertex> notVisitedVertex) {
@@ -56,6 +55,7 @@ public class GRASPGCAlgorithm extends TSPAlgorithm{
 		int random = ThreadLocalRandom.current().nextInt(0, 3);
 		cycle.add(candidates[random].positionToPut, candidates[random].vertexToPut);
 		notVisitedVertex.remove(candidates[random].vertexToPut);
+		candidates[random].vertexToPut.visit();
 	}
 	
 	class Candidate {

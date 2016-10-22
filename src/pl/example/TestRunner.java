@@ -1,5 +1,6 @@
 package pl.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestRunner {
@@ -9,11 +10,22 @@ public class TestRunner {
 	private int lastAlgorithmAvarageValue;
 	private List<Vertex> lastAlgorithmBestPath;
 	
+	private int localSearchBestValue;
+	private int localSearchhWorstValue;
+	private int localSearchAvarageValue;
+	private List<Vertex> localSearchBestPath;
+	
 	public void runTest(Algorithm algorithm, Graph graph){
 		List<Vertex> bestPath = null;
 		int bestResult = Integer.MAX_VALUE;
 		int worstResult = 0;
 		int sum = 0;
+		
+		List<Vertex> bestPath2 = null;
+		int bestResult2 = Integer.MAX_VALUE;
+		int worstResult2 = 0;
+		int sum2 = 0;
+		
 		for(int i = 0; i < 100; i++) {
 			algorithm.run(graph, graph.getVertex(i));
 			int result = algorithm.getResult();
@@ -25,13 +37,31 @@ public class TestRunner {
 			if(result > worstResult) {
 				worstResult = result;
 			}
-			List<Vertex> path = algorithm.getPath();
+			List<Vertex> path = cloneList(algorithm.getPath());
+			
+			LocalSearchAlgorithm localSearch = new LocalSearchAlgorithm();
+			localSearch.run(graph, path);
+			result = localSearch.getResult();
+			sum2 += result;
+			if(result < bestResult2) {
+				bestResult2 = result;
+				bestPath2 = localSearch.getPath();
+			}
+			if(result > worstResult2) {
+				worstResult2 = result;
+			}
 		}
 		lastAlgorithmBestValue = bestResult;
 		lastAlgorithmWorstValue = worstResult;
 		lastAlgorithmBestPath = bestPath;
 		Double d = ((((double) sum) / ((double) 100)) + 0.5);
 		lastAlgorithmAvarageValue = d.intValue();
+		
+		localSearchBestValue = bestResult2;
+		localSearchhWorstValue = worstResult2;
+		localSearchBestPath = bestPath2;
+		d = ((((double) sum2) / ((double) 100)) + 0.5);
+		localSearchAvarageValue = d.intValue();
 	}
 
 	public int getLastRunBestValue() {
@@ -48,5 +78,28 @@ public class TestRunner {
 
 	public List<Vertex> getLastRunBestPath() {
 		return lastAlgorithmBestPath;
+	}
+
+	public int getLocalSearchBestValue() {
+		return localSearchBestValue;
+	}
+
+	public int getLocalSearchhWorstValue() {
+		return localSearchhWorstValue;
+	}
+
+	public int getLocalSearchAvarageValue() {
+		return localSearchAvarageValue;
+	}
+
+	public List<Vertex> getLocalSearchBestPath() {
+		return localSearchBestPath;
+	}
+	
+	private List<Vertex> cloneList(List<Vertex> list) {
+ 	    List<Vertex> clone = new ArrayList<Vertex>(list.size());
+ 	    for (Vertex item : list) 
+ 	    	clone.add(item);
+ 	    return clone;
 	}
 }

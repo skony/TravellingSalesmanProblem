@@ -23,4 +23,9 @@ public class NearestNeighbourAlgorithm extends TSPAlgorithm{
 		}
 		result += AlgorithmsCommon.getDistance(currentVertex, startVertex);
 	}
+	
+	@Override
+	public String getName() {
+		return "NEAREST NEIGHBOUR ALGORITHM";
+	}
 }

@@ -25,6 +25,11 @@ public class GRASPNNAlgorithm extends TSPAlgorithm{
 		result += AlgorithmsCommon.getDistance(path.get(49), path.get(0));
 	}
 	
+	@Override
+	public String getName() {
+		return "GRASPNN ALGORITHM";
+	}
+	
 	private Edge candidateEdgeToNextVertex(Vertex vertex) {
 		Collections.sort(vertex.getEdges());
 		Edge[] candidates = new Edge[3];

@@ -23,7 +23,9 @@ public class RandomAlgorithm extends TSPAlgorithm{
 		path.clear();
 		int i=0;
 		while(iterator.hasNext()) {
-			path.add(i, graph.getVertex(iterator.next()));
+			Vertex v = graph.getVertex(iterator.next());
+			path.add(i, v);
+			v.visit();
 			i++;
 		}
 		for(int j=0; j<path.size(); j++) {
@@ -33,5 +35,10 @@ public class RandomAlgorithm extends TSPAlgorithm{
 				result += AlgorithmsCommon.getDistance(path.get(j), path.get(0));
 			}
 		}
+	}
+	
+	@Override
+	public String getName() {
+		return "RANDOM ALGORITHM";
 	}
 }
