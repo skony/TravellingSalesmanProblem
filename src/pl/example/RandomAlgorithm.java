@@ -16,7 +16,7 @@ public class RandomAlgorithm extends TSPAlgorithm{
 		generated.add(startVertex.getNumber());
 		while (generated.size() < 50)
 		{
-		    Integer next = random.nextInt(99) + 1;
+		    Integer next = random.nextInt(100);
 		    generated.add(next);
 		}
 		Iterator<Integer> iterator = generated.iterator();
@@ -34,6 +34,11 @@ public class RandomAlgorithm extends TSPAlgorithm{
 			} else {
 				result += AlgorithmsCommon.getDistance(path.get(j), path.get(0));
 			}
+		}
+		if(AlgorithmsCommon.checkDuplicates(path)) {
+			int x;
+			x =1;
+			AlgorithmsCommon.printPath(path);
 		}
 	}
 	

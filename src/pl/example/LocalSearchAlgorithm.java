@@ -14,6 +14,13 @@ public class LocalSearchAlgorithm implements Algorithm{
 	
 	public void run(Graph graph, List<Vertex> pathArg){
 		path = pathArg;
+		if(AlgorithmsCommon.checkDuplicates(path)) {
+			int x;
+			x =1;
+			AlgorithmsCommon.printPath(path);
+		} else {
+			int z;
+		}
 		int k=0;
 		while(true) {
 			int bestDelta = Integer.MAX_VALUE;
@@ -61,11 +68,14 @@ public class LocalSearchAlgorithm implements Algorithm{
 					}
 				}
 			}
-			//System.out.println("Best delta " + bestDelta + " ... " + k);
 			k++;
 			if(e1V1BestPosition != -1 && e2V1BestPosition != -1) {
-				path = replaceEdges(e1V1BestPosition, e2V1BestPosition, path);		
-				
+				path = AlgorithmsCommon.replaceEdges(e1V1BestPosition, e2V1BestPosition, path);		
+				if(AlgorithmsCommon.checkDuplicates(path)) {
+					int x;
+					x =1;
+					AlgorithmsCommon.printPath(path);
+				}
 			} else if(vertexToReplace != null) {
 				Collections.replaceAll(path, vertexToReplace, replacemenetVertex);
 				vertexToReplace.unvisit();
@@ -82,6 +92,7 @@ public class LocalSearchAlgorithm implements Algorithm{
 				result += AlgorithmsCommon.getDistance(path.get(i), path.get(0));
 			}
 		}
+		System.out.println("Result is now " + result + " after " + k + " iterations");
 	}
 
 	@Override
@@ -113,27 +124,5 @@ public class LocalSearchAlgorithm implements Algorithm{
 		} else {
 			return path.get(vPosition+1);
 		}
-	}
-	
-	private List<Vertex> replaceEdges(int pos1, int pos2, List<Vertex> path) {
-		List<Vertex> fragment1 = path.subList(0, pos1+1);
-		List<Vertex> fragment2 = revertListFragment(pos1+1, pos2, path);
-		List<Vertex> fragment3 = new ArrayList<Vertex>();
-		if(pos2<49) {
-			fragment3 = path.subList(pos2+1, 50);
-		}
-		List<Vertex> newPath = new ArrayList<Vertex>();
-		newPath.addAll(fragment1);
-		newPath.addAll(fragment2);
-		newPath.addAll(fragment3);
-		return newPath;
-	}
-	
-	private List<Vertex> revertListFragment(int pos1, int pos2, List<Vertex> path) {
-		List<Vertex> revertedFragment = new ArrayList<Vertex>();
-		for(int i=pos2; i>=pos1; i--) {
-			revertedFragment.add(path.get(i));
-		}
-		return revertedFragment;
 	}
 }

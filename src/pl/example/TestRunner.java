@@ -15,6 +15,10 @@ public class TestRunner {
 	private int localSearchAvarageValue;
 	private List<Vertex> localSearchBestPath;
 	
+	private long localSearchBestTime;
+	private long localSearchWorstTime;
+	private long localSearchAvarageTime;
+	
 	public void runTest(Algorithm algorithm, Graph graph){
 		List<Vertex> bestPath = null;
 		int bestResult = Integer.MAX_VALUE;
@@ -25,6 +29,10 @@ public class TestRunner {
 		int bestResult2 = Integer.MAX_VALUE;
 		int worstResult2 = 0;
 		int sum2 = 0;
+		
+		long bestTime = Long.MAX_VALUE;
+		long worstTime = 0L;
+		long sumOfTimes = 0L;
 		
 		for(int i = 0; i < 100; i++) {
 			algorithm.run(graph, graph.getVertex(i));
@@ -40,7 +48,9 @@ public class TestRunner {
 			List<Vertex> path = cloneList(algorithm.getPath());
 			
 			LocalSearchAlgorithm localSearch = new LocalSearchAlgorithm();
+			long startTime = System.currentTimeMillis();
 			localSearch.run(graph, path);
+			long endTime = System.currentTimeMillis();
 			result = localSearch.getResult();
 			sum2 += result;
 			if(result < bestResult2) {
@@ -50,6 +60,14 @@ public class TestRunner {
 			if(result > worstResult2) {
 				worstResult2 = result;
 			}
+			long timeOfExecution = endTime - startTime;
+			if(timeOfExecution<bestTime) {
+				bestTime = timeOfExecution;
+			}
+			if(timeOfExecution>worstTime) {
+				worstTime = timeOfExecution;
+			}
+			sumOfTimes += timeOfExecution;
 		}
 		lastAlgorithmBestValue = bestResult;
 		lastAlgorithmWorstValue = worstResult;
@@ -62,6 +80,11 @@ public class TestRunner {
 		localSearchBestPath = bestPath2;
 		d = ((((double) sum2) / ((double) 100)) + 0.5);
 		localSearchAvarageValue = d.intValue();
+		
+		localSearchBestTime = bestTime;
+		localSearchWorstTime = worstTime;
+		d = ((((double) sumOfTimes) / ((double) 100)) + 0.5);
+		localSearchAvarageTime = d.intValue();
 	}
 
 	public int getLastRunBestValue() {
@@ -94,6 +117,18 @@ public class TestRunner {
 
 	public List<Vertex> getLocalSearchBestPath() {
 		return localSearchBestPath;
+	}
+
+	public long getLocalSearchBestTime() {
+		return localSearchBestTime;
+	}
+
+	public long getLocalSearchWorstTime() {
+		return localSearchWorstTime;
+	}
+
+	public long getLocalSearchAvarageTime() {
+		return localSearchAvarageTime;
 	}
 	
 	private List<Vertex> cloneList(List<Vertex> list) {
