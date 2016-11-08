@@ -1,8 +1,13 @@
-package pl.example;
+package pl.example.algorithms.ls;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import pl.example.AlgorithmsCommon;
+import pl.example.algorithms.Algorithm;
+import pl.example.datastructures.Graph;
+import pl.example.datastructures.Vertex;
 
 public class LocalSearchAlgorithm implements Algorithm{
 	
@@ -14,13 +19,6 @@ public class LocalSearchAlgorithm implements Algorithm{
 	
 	public void run(Graph graph, List<Vertex> pathArg){
 		path = pathArg;
-		if(AlgorithmsCommon.checkDuplicates(path)) {
-			int x;
-			x =1;
-			AlgorithmsCommon.printPath(path);
-		} else {
-			int z;
-		}
 		int k=0;
 		while(true) {
 			int bestDelta = Integer.MAX_VALUE;
@@ -71,11 +69,6 @@ public class LocalSearchAlgorithm implements Algorithm{
 			k++;
 			if(e1V1BestPosition != -1 && e2V1BestPosition != -1) {
 				path = AlgorithmsCommon.replaceEdges(e1V1BestPosition, e2V1BestPosition, path);		
-				if(AlgorithmsCommon.checkDuplicates(path)) {
-					int x;
-					x =1;
-					AlgorithmsCommon.printPath(path);
-				}
 			} else if(vertexToReplace != null) {
 				Collections.replaceAll(path, vertexToReplace, replacemenetVertex);
 				vertexToReplace.unvisit();
@@ -92,7 +85,7 @@ public class LocalSearchAlgorithm implements Algorithm{
 				result += AlgorithmsCommon.getDistance(path.get(i), path.get(0));
 			}
 		}
-		System.out.println("Result is now " + result + " after " + k + " iterations");
+		//System.out.println("Result is now " + result + " after " + k + " iterations");
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package pl.example;
+package pl.example.datastructures;
 
 public class Edge implements Comparable<Edge> {
 

@@ -3,6 +3,11 @@ package pl.example;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.example.algorithms.Algorithm;
+import pl.example.algorithms.ls.LocalSearchAlgorithm;
+import pl.example.datastructures.Graph;
+import pl.example.datastructures.Vertex;
+
 public class TestRunner {
 	
 	private int lastAlgorithmBestValue;

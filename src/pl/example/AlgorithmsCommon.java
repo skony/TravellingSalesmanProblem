@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import pl.example.datastructures.Edge;
+import pl.example.datastructures.Vertex;
+
 public class AlgorithmsCommon {
 
 	public static Edge findEdgeToNearestUnvisitedNeighbour(Vertex vertex) {
@@ -30,11 +33,6 @@ public class AlgorithmsCommon {
 	}
 	
 	public static List<Vertex> replaceEdges(int pos1, int pos2, List<Vertex> path) {
-		if(AlgorithmsCommon.checkDuplicates(path)) {
-			int x;
-			x =1;
-			AlgorithmsCommon.printPath(path);
-		}
 		List<Vertex> fragment1 = path.subList(0, pos1+1);
 		List<Vertex> fragment2 = revertListFragment(pos1+1, pos2, path);
 		List<Vertex> fragment3 = new ArrayList<Vertex>();
@@ -45,11 +43,6 @@ public class AlgorithmsCommon {
 		newPath.addAll(fragment1);
 		newPath.addAll(fragment2);
 		newPath.addAll(fragment3);
-		if(AlgorithmsCommon.checkDuplicates(newPath)) {
-			int x;
-			x =1;
-			AlgorithmsCommon.printPath(newPath);
-		}
 		return newPath;
 	}
 	
@@ -66,15 +59,13 @@ public class AlgorithmsCommon {
 		for(Vertex v : path) {
 			System.out.print(v.getNumber() + ", ");
 		}
-		System.out.print(path.get(0).getNumber() + ", ");
 		System.out.println("]");
 	}
 	
-	public static boolean checkDuplicates(List<Vertex> list) {
+	public static void checkDuplicates(List<Vertex> list) throws DuplicateException {
 		Set<Vertex> set = new HashSet<Vertex>(list);
 		if(set.size() < list.size()) {
-			return true;
+			throw new DuplicateException();
 		}
-		return false;
 	}
 }

@@ -1,9 +1,15 @@
-package pl.example;
+package pl.example.algorithms.ls;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import pl.example.AlgorithmsCommon;
+import pl.example.DuplicateException;
+import pl.example.algorithms.Algorithm;
+import pl.example.datastructures.Graph;
+import pl.example.datastructures.Vertex;
 
 public class IteratedLocalSearchAlgorithm implements Algorithm{
 	
@@ -20,41 +26,27 @@ public class IteratedLocalSearchAlgorithm implements Algorithm{
 		int num = random.nextInt(100);
 		algorithm.run(graph, graph.getVertex(num));
 		List<Vertex> basePath = algorithm.getPath();
-		if(AlgorithmsCommon.checkDuplicates(basePath)) {
-			int x;
-			x =1;
-			AlgorithmsCommon.printPath(basePath);
-		}
 		int baseResult = algorithm.getResult();
 		boolean firstPerturbation = true;
+		int i = 0;
 		while(true) {
+			System.out.println(i++);
 			List<Vertex> parturbatedPath;
-			System.out.println("PATHS");
-			AlgorithmsCommon.printPath(basePath);
 			if(firstPerturbation) {
-				if(AlgorithmsCommon.checkDuplicates(basePath)) {
-					int x;
-					x =1;
-					AlgorithmsCommon.printPath(basePath);
-				}
 				parturbatedPath = perturbVertexes(graph, basePath);
-				firstPerturbation = true;
+				firstPerturbation = false;
 			} else {
 				parturbatedPath = perturbEdges(basePath);
 				firstPerturbation = true;
 			}
-			if(AlgorithmsCommon.checkDuplicates(parturbatedPath)) {
-				int x;
-			}
-			AlgorithmsCommon.printPath(parturbatedPath);
+//			AlgorithmsCommon.printPath(parturbatedPath);			
 			localSearch.run(graph, parturbatedPath);
 			int newResult = localSearch.getResult();
 			if(newResult<baseResult) {
 				baseResult = newResult;
 				basePath = localSearch.getPath();
-				if(AlgorithmsCommon.checkDuplicates(basePath)) {
-					int x=1;
-				}
+			} else {
+				basePath = returnToLastPath(basePath, graph);
 			}
 			long currentTime = System.currentTimeMillis();
 			long elapsedTime = currentTime - startTime;
@@ -83,11 +75,6 @@ public class IteratedLocalSearchAlgorithm implements Algorithm{
 	}
 
 	private List<Vertex> perturbVertexes(Graph graph, List<Vertex> path) {
-		if(AlgorithmsCommon.checkDuplicates(path)) {
-			int x;
-			x =1;
-			AlgorithmsCommon.printPath(path);
-		}
 		Random random = new Random();
 		List<Vertex> perturbatedPath = cloneList(path);
 		for(int i=0; i<3; i++) {
@@ -99,16 +86,6 @@ public class IteratedLocalSearchAlgorithm implements Algorithm{
 			Collections.replaceAll(perturbatedPath, vertexToReplace, replacementVertex);
 			vertexToReplace.unvisit();
 			replacementVertex.visit();
-			if(AlgorithmsCommon.checkDuplicates(perturbatedPath)) {
-				int x;
-				x =1;
-				AlgorithmsCommon.printPath(perturbatedPath);
-			}
-		}
-		if(AlgorithmsCommon.checkDuplicates(perturbatedPath)) {
-			int x;
-			x =1;
-			AlgorithmsCommon.printPath(perturbatedPath);
 		}
 		return perturbatedPath;
 	}
@@ -128,9 +105,15 @@ public class IteratedLocalSearchAlgorithm implements Algorithm{
 	
 	private List<Vertex> cloneList(List<Vertex> list) {
 		List<Vertex> clonedList = new ArrayList<Vertex>();
-		for(Vertex v : list) {
-			clonedList.add(v);
-		}
+		clonedList.addAll(list);
 		return clonedList;
+	}
+	
+	private List<Vertex> returnToLastPath(List<Vertex> last, Graph graph) {
+		graph.clearGraph();
+		for(Vertex v : last) {
+			v.visit();
+		}
+		return last;
 	}
 }

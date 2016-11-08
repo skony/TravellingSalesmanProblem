@@ -1,7 +1,13 @@
-package pl.example;
+package pl.example.algorithms.ls;
 
 import java.util.List;
 import java.util.Random;
+
+import pl.example.AlgorithmsCommon;
+import pl.example.DuplicateException;
+import pl.example.algorithms.Algorithm;
+import pl.example.datastructures.Graph;
+import pl.example.datastructures.Vertex;
 
 public class MultipleStartLocalSearchAlgorithm implements Algorithm{
 	
@@ -14,12 +20,22 @@ public class MultipleStartLocalSearchAlgorithm implements Algorithm{
 		LocalSearchAlgorithm localSearch = new LocalSearchAlgorithm();
 		Random random = new Random();
 		int bestResult = Integer.MAX_VALUE;
-		for(int i=0; i<100; i++) {
+		for(int i=0; i<1000; i++) {
 			System.out.println(i);
 			int num = random.nextInt(100);
 			algorithm.run(graph, graph.getVertex(num));
 			List<Vertex> basePath = algorithm.getPath();
+			try {
+				AlgorithmsCommon.checkDuplicates(basePath);
+			} catch(DuplicateException e) {
+				AlgorithmsCommon.printPath(basePath);
+			}
 			localSearch.run(graph, basePath);
+			try {
+				AlgorithmsCommon.checkDuplicates(localSearch.getPath());
+			} catch(DuplicateException e) {
+				AlgorithmsCommon.printPath(localSearch.getPath());
+			}
 			int oneRunResult = localSearch.getResult();
 			if(oneRunResult<bestResult) {
 				bestResult = oneRunResult;

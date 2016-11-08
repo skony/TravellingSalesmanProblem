@@ -1,4 +1,4 @@
-package pl.example;
+package pl.example.datastructures;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,5 +36,12 @@ public class Graph {
 	
 	public List<Vertex> getUnvisitedVertexes() {
 		return vertexes.stream().filter(v -> v.isNotVisited()).collect(Collectors.toList());
+//		List<Vertex> list = new ArrayList<Vertex>();
+//		for(Vertex v : vertexes) {
+//			if(v.isNotVisited()) {
+//				list.add(v);
+//			}
+//		}
+//		return list;
 	}
 }

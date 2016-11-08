@@ -3,6 +3,14 @@ package pl.example;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.example.algorithms.Algorithm;
+import pl.example.algorithms.tsp.GRASPGCAlgorithm;
+import pl.example.algorithms.tsp.GRASPNNAlgorithm;
+import pl.example.algorithms.tsp.GreedyCycle2Algorithm;
+import pl.example.algorithms.tsp.NearestNeighbourAlgorithm;
+import pl.example.algorithms.tsp.RandomAlgorithm;
+import pl.example.datastructures.Graph;
+
 public class Main {
 	
 	public static void main(String[] args) {
@@ -24,6 +32,10 @@ public class Main {
 		System.out.println("MIN: " + extendedTestRunner.getMSLSBestTime() + " ms");
 		System.out.println("MAX: " + extendedTestRunner.getMSLSWorstTime() + " ms");
 		System.out.println("AVG: " + extendedTestRunner.getMSLSAvarageTime() + " ms");
+		System.out.println("ITERABLE LOCAL SEARCH");
+		System.out.println("MIN: " + extendedTestRunner.getILSBestValue());
+		System.out.println("MAX: " + extendedTestRunner.getILSWorstValue());
+		System.out.println("AVG: " + extendedTestRunner.getILSAvarageValue());
 //		TestRunner testRunner = new TestRunner();
 //		for(Algorithm algorithm : algorithms) {
 //			System.out.println(algorithm.getName());

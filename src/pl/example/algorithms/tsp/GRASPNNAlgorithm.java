@@ -1,4 +1,4 @@
-package pl.example;
+package pl.example.algorithms.tsp;
 
 import static pl.example.Constance.PATH_DISTANCE;
 
@@ -6,6 +6,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+
+import pl.example.AlgorithmsCommon;
+import pl.example.datastructures.Edge;
+import pl.example.datastructures.Graph;
+import pl.example.datastructures.Vertex;
 
 public class GRASPNNAlgorithm extends TSPAlgorithm{
 	

@@ -13,6 +13,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import pl.example.datastructures.Edge;
+import pl.example.datastructures.Graph;
+import pl.example.datastructures.Vertex;
+
 public class FileToGraphReader {
 	
 	private static final String PATH = "rsc/kroA100.xml";

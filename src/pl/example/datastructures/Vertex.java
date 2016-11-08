@@ -1,4 +1,4 @@
-package pl.example;
+package pl.example.datastructures;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,10 +1,14 @@
-package pl.example;
+package pl.example.algorithms.tsp;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+
+import pl.example.AlgorithmsCommon;
+import pl.example.datastructures.Graph;
+import pl.example.datastructures.Vertex;
 
 public class RandomAlgorithm extends TSPAlgorithm{
 
@@ -34,11 +38,6 @@ public class RandomAlgorithm extends TSPAlgorithm{
 			} else {
 				result += AlgorithmsCommon.getDistance(path.get(j), path.get(0));
 			}
-		}
-		if(AlgorithmsCommon.checkDuplicates(path)) {
-			int x;
-			x =1;
-			AlgorithmsCommon.printPath(path);
 		}
 	}
 	
