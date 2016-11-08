@@ -25,17 +25,7 @@ public class MultipleStartLocalSearchAlgorithm implements Algorithm{
 			int num = random.nextInt(100);
 			algorithm.run(graph, graph.getVertex(num));
 			List<Vertex> basePath = algorithm.getPath();
-			try {
-				AlgorithmsCommon.checkDuplicates(basePath);
-			} catch(DuplicateException e) {
-				AlgorithmsCommon.printPath(basePath);
-			}
 			localSearch.run(graph, basePath);
-			try {
-				AlgorithmsCommon.checkDuplicates(localSearch.getPath());
-			} catch(DuplicateException e) {
-				AlgorithmsCommon.printPath(localSearch.getPath());
-			}
 			int oneRunResult = localSearch.getResult();
 			if(oneRunResult<bestResult) {
 				bestResult = oneRunResult;
